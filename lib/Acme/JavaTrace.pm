@@ -1,9 +1,9 @@
 package Acme::JavaTrace;
 use strict;
 
-use vars qw($CLASS $VERSION);
-$CLASS   = 'Acme::JavaTrace';
-$VERSION = '0.01';
+{ no strict;
+  $VERSION = '0.02';
+}
 
 # Install warn() and die() substitues
 $SIG{'__WARN__'} = \&do_warn;
@@ -80,7 +80,7 @@ sub stack_trace {
         $stack[-1][0] = $context[3];
         push @stack, [ '', @context[1, 2] ];
     }
-    $stack[-1][0] = 'main::';
+    $stack[-1][0] = (caller($level-2))[0].'::' || 'main::';
     
     for my $func (@stack) {
         $$func[1] eq '' and $$func[1] = 'unknown source';
@@ -117,6 +117,26 @@ that precisely indicates how and where the error or warning occurred.
 Other than this, their use should stay unchanged, even when using 
 C<die()> inside C<eval()>. 
 
+For a explanation of why I wrote this module, you can read the sildes 
+of my lightning talk I<Entreprise Perl>, available here: 
+L<http://maddingue.org/conferences/yapc-eu-2004/entreprise-perl/>
+
+
+=head1 EXAMPLE
+
+Here is an example of stack trace produced by C<Acme::JavaTrace> 
+using a fictional Perl program: 
+
+    Exception: event not implemented
+            at MyEvents::generic_event_handler(workshop/events.pl:26)
+            at MyEvents::__ANON__(workshop/events.pl:11)
+            at MyEvents::dispatch_event(workshop/events.pl:22)
+            at MyEvents::call_event(workshop/events.pl:17)
+            at main::(workshop/events.pl:30)
+
+Please note that even the professionnal indentation present in Java 
+traces is included in the trace. 
+
 
 =head1 BLAME
 
@@ -125,7 +145,7 @@ Java, for its unhelpful kilometre-long stack traces.
 
 =head1 AUTHOR
 
-SE<eacute>bastien Aperghis-Tramoni <sebastien@aperghis.net>
+SE<eacute>bastien Aperghis-Tramoni E<lt>sebastien@aperghis.netE<gt>
 
 
 =head1 COPYRIGHT

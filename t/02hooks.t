@@ -1,4 +1,4 @@
-use Test;
+use strict; use Test;
 BEGIN { plan tests => 6 }
 
 # Explicitely set the WARN and DIE hooks to DEFAULT.

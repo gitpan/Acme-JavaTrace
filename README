@@ -2,5 +2,16 @@ NAME
     Acme::JavaTrace - Module for using Java-like stack traces
 
 DESCRIPTION
-    This module modifies the warn() and die() functions so that 
-    they print Java-like stack traces. 
+    <buzzword> This module tries to improves the Perl programmer 
+    experience by porting the Java paradigm to print stack traces, 
+    which is more professional than Perl's way. </buzzword>
+
+    This is achieved by modifying the functions warn() and die() 
+    in order to replace the standard messages by complete stack traces 
+    that precisely indicates how and where the error or warning occurred. 
+    Other than this, their use should stay unchanged, even when using 
+    die() inside eval(). 
+
+    For a explanation of why I wrote this module, you can read the sildes 
+    of my lightning talk "Entreprise Perl", available here: 
+      http://maddingue.org/conferences/yapc-eu-2004/entreprise-perl/

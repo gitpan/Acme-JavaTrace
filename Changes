@@ -1,5 +1,11 @@
 Version History
 ---------------
 
+2004.12.12 - 0.02
+  - Bugfix: last line was incorrectly always printing "main::". 
+  - Improved documentation. 
+  - Added link to the slides of my "Entreprise Perl" lightning talk.
+  - Added tests t/distchk.t, t/pod.t, t/portfs.t
+
 2004.03.29 - 0.01
   - Initial release. 
