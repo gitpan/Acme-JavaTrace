@@ -1,6 +1,10 @@
 Version History
 ---------------
 
+2005.03.20 - 0.03
+  - Added test scripts 00load.t, 00prereq.t, podcover.t
+  - Updated documentation.
+
 2004.12.12 - 0.02
   - Bugfix: last line was incorrectly always printing "main::". 
   - Improved documentation. 

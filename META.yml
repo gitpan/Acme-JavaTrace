@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: Acme-JavaTrace
-version: 0.02
+version: 0.03
 author:
   - |-
     SE<eacute>bastien Aperghis-Tramoni E<lt>sebastien@aperghis.netE<gt>
@@ -9,5 +9,5 @@ license: perl
 provides:
   Acme::JavaTrace:
     file: lib/Acme/JavaTrace.pm
-    version: 0.02
-generated_by: Module::Build version 0.2606
+    version: 0.03
+generated_by: Module::Build version 0.2607

@@ -2,7 +2,7 @@ package Acme::JavaTrace;
 use strict;
 
 { no strict;
-  $VERSION = '0.02';
+  $VERSION = '0.03';
 }
 
 # Install warn() and die() substitues
@@ -98,6 +98,10 @@ __END__
 
 Acme::JavaTrace - Module for using Java-like stack traces
 
+=head1 VERSION
+
+Version 0.03
+
 =head1 SYNOPSIS
 
     use Acme::JavaTrace;
@@ -138,6 +142,26 @@ Please note that even the professionnal indentation present in Java
 traces is included in the trace. 
 
 
+=head1 FUNCTIONS
+
+=over 4
+
+=item do_warn()
+
+=item do_die()
+
+These functions respectively handle the C<__WARN__> and C<__DIE__> 
+signals. Therefore there is no need to call these directly (and 
+in fact, they are not expected to be called directly). 
+
+=item stack_trace()
+
+This function is the one which prints the stack trace, following 
+the Java standard format. 
+
+=back
+
+
 =head1 BLAME
 
 Java, for its unhelpful kilometre-long stack traces. 
@@ -148,7 +172,16 @@ Java, for its unhelpful kilometre-long stack traces.
 SE<eacute>bastien Aperghis-Tramoni E<lt>sebastien@aperghis.netE<gt>
 
 
-=head1 COPYRIGHT
+=head1 BUGS
+    
+Please report any bugs or feature requests to
+C<bug-acme-javatrace@rt.cpan.org>, or through the web interface at
+L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Acme-JavaTrace>.
+I will be notified, and then you'll automatically be notified of
+progress on your bug as I make changes.
+
+
+=head1 COPYRIGHT & LICENSE
 
 Acme::JavaTrace is Copyright (C)2004 SE<eacute>bastien Aperghis-Tramoni.
 
