@@ -1,0 +1,13 @@
+MANIFEST
+LICENSE
+LICENSE.Artistic
+LICENSE.GPL
+Build.PL
+Makefile.PL
+Changes
+INSTALL
+README
+META.yml
+lib/Acme/JavaTrace.pm
+t/01basic.t
+t/02hooks.t

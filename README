@@ -1,0 +1,6 @@
+NAME
+    Acme::JavaTrace - Module for using Java-like stack traces
+
+DESCRIPTION
+    This module modifies the warn() and die() functions so that 
+    they print Java-like stack traces. 
