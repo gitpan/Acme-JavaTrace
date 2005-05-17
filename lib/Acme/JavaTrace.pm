@@ -2,21 +2,21 @@ package Acme::JavaTrace;
 use strict;
 
 { no strict;
-  $VERSION = '0.03';
+  $VERSION = '0.04';
 }
 
 # Install warn() and die() substitues
-$SIG{'__WARN__'} = \&do_warn;
-$SIG{'__DIE__' } = \&do_die;
+$SIG{'__WARN__'} = \&_do_warn;
+$SIG{'__DIE__' } = \&_do_die;
 
 my $stderr = '';
 my $in_eval = 0;
 
 
 # 
-# do_warn()
-# -------
-sub do_warn {
+# _do_warn()
+# --------
+sub _do_warn {
     local $SIG{'__WARN__'} = 'DEFAULT';
     
     my $msg = join '', @_;
@@ -24,7 +24,7 @@ sub do_warn {
     $stderr .= $msg;
     $stderr .= "\n" if substr($msg, -1, 1) ne "\n";
     
-    stack_trace($1, $2);
+    _stack_trace($1, $2);
     
     print STDERR $stderr;
     $stderr = '';
@@ -33,9 +33,9 @@ sub do_warn {
 
 
 # 
-# do_die()
-# ------
-sub do_die {
+# _do_die()
+# -------
+sub _do_die {
     local $SIG{'__WARN__'} = 'DEFAULT';
     local $SIG{'__DIE__' } = 'DEFAULT';
     
@@ -46,7 +46,7 @@ sub do_die {
     $stderr .= $msg;
     $stderr .= "\n" if substr($msg, -1, 1) ne "\n";
     
-    stack_trace($1, $2);
+    _stack_trace($1, $2);
     
     if($in_eval) {
         $@ = $stderr;
@@ -63,9 +63,9 @@ sub do_die {
 
 
 # 
-# stack_trace()
-# -----------
-sub stack_trace {
+# _stack_trace()
+# ------------
+sub _stack_trace {
     my($file,$line) = @_;
     $file ||= '';  $line ||= '';
     $file =~ '(eval \d+)' and $file = '<eval>';
@@ -100,9 +100,15 @@ Acme::JavaTrace - Module for using Java-like stack traces
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =head1 SYNOPSIS
+
+On the command-line:
+
+    perl -WMAcme::JavaTrace program_with_strange_errors.pl
+
+Inside a module:
 
     use Acme::JavaTrace;
     warn "some kind of non-fatal exception occured";
@@ -121,7 +127,7 @@ that precisely indicates how and where the error or warning occurred.
 Other than this, their use should stay unchanged, even when using 
 C<die()> inside C<eval()>. 
 
-For a explanation of why I wrote this module, you can read the sildes 
+For a explanation of why I wrote this module, you can read the slides 
 of my lightning talk I<Entreprise Perl>, available here: 
 L<http://maddingue.org/conferences/yapc-eu-2004/entreprise-perl/>
 
@@ -138,28 +144,8 @@ using a fictional Perl program:
             at MyEvents::call_event(workshop/events.pl:17)
             at main::(workshop/events.pl:30)
 
-Please note that even the professionnal indentation present in Java 
-traces is included in the trace. 
-
-
-=head1 FUNCTIONS
-
-=over 4
-
-=item do_warn()
-
-=item do_die()
-
-These functions respectively handle the C<__WARN__> and C<__DIE__> 
-signals. Therefore there is no need to call these directly (and 
-in fact, they are not expected to be called directly). 
-
-=item stack_trace()
-
-This function is the one which prints the stack trace, following 
-the Java standard format. 
-
-=back
+Please note that even the professionnal indentation present in the 
+Java environment is included in the trace. 
 
 
 =head1 BLAME
@@ -175,7 +161,7 @@ SE<eacute>bastien Aperghis-Tramoni E<lt>sebastien@aperghis.netE<gt>
 =head1 BUGS
     
 Please report any bugs or feature requests to
-C<bug-acme-javatrace@rt.cpan.org>, or through the web interface at
+C<bug-Acme-JavaTrace@rt.cpan.org>, or through the web interface at
 L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Acme-JavaTrace>.
 I will be notified, and then you'll automatically be notified of
 progress on your bug as I make changes.
