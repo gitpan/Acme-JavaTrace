@@ -2,15 +2,47 @@ package Acme::JavaTrace;
 use strict;
 
 { no strict;
-  $VERSION = '0.04';
+  $VERSION = '0.05';
 }
 
-# Install warn() and die() substitues
+# Install warn() and die() substitutes
 $SIG{'__WARN__'} = \&_do_warn;
 $SIG{'__DIE__' } = \&_do_die;
 
 my $stderr = '';
 my $in_eval = 0;
+my %options = (
+    showrefs => 0, 
+);
+
+
+# 
+# import()
+# ------
+sub import {
+    my $class = shift;
+    
+    for my $opt (@_) {
+        exists $options{$opt} ? $options{$opt} = not $options{$opt}
+                              : CORE::warn "warning: Unknown option: $opt\n"
+    }
+}
+
+
+# 
+# _use_data_dumper()
+# ----------------
+sub _use_data_dumper {
+    require Data::Dumper;
+    import Data::Dumper;
+    $Data::Dumper::Indent = 1;      # no fancy indent
+    $Data::Dumper::Terse  = 1;      # don't use $VAR unless needed
+    $Data::Dumper::Sortkeys = 1;    # sort keys
+    #$Data::Dumper::Deparse = 1;     # deparse code refs
+    { local $^W = 0; 
+      *Devel::SimpleTrace::_use_data_dumper = sub {};
+    }
+}
 
 
 # 
@@ -39,9 +71,12 @@ sub _do_die {
     local $SIG{'__WARN__'} = 'DEFAULT';
     local $SIG{'__DIE__' } = 'DEFAULT';
     
+    CORE::die @_ if ref $_[0] and not $options{showrefs};
     CORE::die @_ if index($_[0], "\n\tat ") >= 0;
+    my @args = @_;
     
-    my $msg = join '', @_;
+    _use_data_dumper() if ref $args[0];
+    my $msg = join '', map { ref $_ ? "Caught exception object: $_\: ".Dumper($_) : $_ } @args;
     $msg =~ s/ at (.+) line (\d+)\.$//;
     $stderr .= $msg;
     $stderr .= "\n" if substr($msg, -1, 1) ne "\n";
@@ -100,13 +135,13 @@ Acme::JavaTrace - Module for using Java-like stack traces
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =head1 SYNOPSIS
 
 On the command-line:
 
-    perl -WMAcme::JavaTrace program_with_strange_errors.pl
+    perl -wMAcme::JavaTrace program_with_strange_errors.pl
 
 Inside a module:
 
@@ -132,6 +167,29 @@ of my lightning talk I<Entreprise Perl>, available here:
 L<http://maddingue.org/conferences/yapc-eu-2004/entreprise-perl/>
 
 
+=head1 OPTIONS
+
+Options can be set at import time using: 
+
+    perl -wMDevel::SimpleTrace=option1,option2
+
+or 
+
+    use Devel::SimpleTrace qw(option1 option2);
+
+Available options are: 
+
+=over 4
+
+=item showrefs
+
+Using this option will tell C<Devel::SimpleTrace> to stringify objects and 
+references passed in argument to C<die()>. This option is disabled by default 
+in order to leave objects and references untouched. 
+
+=back
+
+
 =head1 EXAMPLE
 
 Here is an example of stack trace produced by C<Acme::JavaTrace> 
@@ -148,6 +206,23 @@ Please note that even the professionnal indentation present in the
 Java environment is included in the trace. 
 
 
+=head1 DIAGNOSTICS
+
+=over 4
+
+=item Unknown option: %s
+
+B<(W)> This warning occurs if you try to set an unknown option. 
+
+=back
+
+
+=head1 BUGS & CAVEATS
+
+This module is currently not compatible with other modules that also 
+work by overriding C<die()> and C<warn()>, like C<CGI::Carp>. 
+
+
 =head1 BLAME
 
 Java, for its unhelpful kilometre-long stack traces. 
@@ -162,7 +237,7 @@ SE<eacute>bastien Aperghis-Tramoni E<lt>sebastien@aperghis.netE<gt>
     
 Please report any bugs or feature requests to
 C<bug-Acme-JavaTrace@rt.cpan.org>, or through the web interface at
-L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Acme-JavaTrace>.
+L<https://rt.cpan.org/NoAuth/Bugs.html?Dist=Acme-JavaTrace>.
 I will be notified, and then you'll automatically be notified of
 progress on your bug as I make changes.
 

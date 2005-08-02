@@ -1,6 +1,13 @@
 Version History
 ---------------
 
+2005.07.31 - 0.05
+  - Bugfix: added support for references and objects passed to die().
+  - Added test scripts 03showrefs0.t, 03showrefs1.t
+
+2005.05.18 - 0.04
+  - Updated documentation.
+
 2005.03.20 - 0.03
   - Added test scripts 00load.t, 00prereq.t, podcover.t
   - Updated documentation.
