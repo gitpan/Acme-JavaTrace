@@ -1,8 +1,13 @@
 Version History
 ---------------
 
+2005.07.13 - 0.06
+  - Tests: Modified 03showrefs1.t so that it passes under Perl 5.004
+  - Updated documentation.
+
 2005.07.31 - 0.05
   - Bugfix: added support for references and objects passed to die().
+  - Added import option 'showrefs'.
   - Added test scripts 03showrefs0.t, 03showrefs1.t
 
 2005.05.18 - 0.04
