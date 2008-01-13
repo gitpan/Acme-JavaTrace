@@ -1,6 +1,9 @@
 Version History
 ---------------
 
+2008.01.13 - 0.07
+  - Tests: Fixed t/03showrefs1.t so it passes under Perl 5.005
+
 2005.07.13 - 0.06
   - Tests: Modified 03showrefs1.t so that it passes under Perl 5.004
   - Updated documentation.

@@ -1,14 +1,22 @@
 ---
 name: Acme-JavaTrace
-version: 0.06
+version: 0.07
 author:
-  - Sébastien Aperghis-Tramoni <sebastien@aperghis.net>
+  - 'Sébastien Aperghis-Tramoni <sebastien@aperghis.net>'
 abstract: Module for using Java-like stack traces
 license: perl
+resources:
+  license: http://dev.perl.org/licenses/
 requires:
   Data::Dumper: 0
+build_requires:
+  Test: 0
+  Test::More: 0
 provides:
   Acme::JavaTrace:
     file: lib/Acme/JavaTrace.pm
-    version: 0.06
-generated_by: Module::Build version 0.2611
+    version: 0.07
+generated_by: Module::Build version 0.2808
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

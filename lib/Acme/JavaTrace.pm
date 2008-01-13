@@ -2,7 +2,7 @@ package Acme::JavaTrace;
 use strict;
 
 { no strict;
-  $VERSION = '0.06';
+  $VERSION = '0.07';
 }
 
 # Install warn() and die() substitutes
@@ -135,7 +135,7 @@ Acme::JavaTrace - Module for using Java-like stack traces
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =head1 SYNOPSIS
 
