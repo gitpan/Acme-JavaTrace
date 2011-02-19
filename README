@@ -1,7 +1,10 @@
 NAME
+
     Acme::JavaTrace - Module for using Java-like stack traces
 
+
 DESCRIPTION
+
     <buzzword> This module tries to improves the Perl programmer 
     experience by porting the Java paradigm to print stack traces, 
     which is more professional than Perl's way. </buzzword>
@@ -38,7 +41,7 @@ INSTALLATION
 
 COPYRIGHT AND LICENCE
 
-    Copyright (C) 2004, 2005 Sébastien Aperghis-Tramoni <sebastien@aperghis.net>
+    Copyright (C) 2004-2011 SÃ©bastien Aperghis-Tramoni <sebastien@aperghis.net>
 
     This library is free software; you can redistribute it and/or modify
     it under the same terms as Perl itself.

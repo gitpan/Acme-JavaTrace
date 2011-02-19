@@ -5,7 +5,7 @@ eval 'use ExtUtils::MakeMaker::Coverage';
 WriteMakefile (
     NAME                => 'Acme::JavaTrace', 
     LICENSE             => 'perl', 
-    AUTHOR              => 'Sebastien Aperghis-Tramoni <sebastien@aperghis.net>',
+    AUTHOR              => 'Sébastien Aperghis-Tramoni <sebastien@aperghis.net>',
     VERSION_FROM        => 'lib/Acme/JavaTrace.pm', 
     ABSTRACT_FROM       => 'lib/Acme/JavaTrace.pm', 
     PREREQ_PM           => {

@@ -1,6 +1,9 @@
 Version History
 ---------------
 
+2011.02.19 - 0.08
+  - Converted files to UTF-8.
+
 2008.01.13 - 0.07
   - Tests: Fixed t/03showrefs1.t so it passes under Perl 5.005
 

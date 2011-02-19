@@ -4,7 +4,7 @@ use Module::Build;
 Module::Build->new(
     module_name         => 'Acme::JavaTrace', 
     license             => 'perl', 
-    dist_author         => 'Sébastien Aperghis-Tramoni <sebastien@aperghis.net>', 
+    dist_author         => 'SÃ©bastien Aperghis-Tramoni <sebastien@aperghis.net>', 
     dist_version_from   => 'lib/Acme/JavaTrace.pm', 
     requires => {
         'Data::Dumper'  => 0, 
